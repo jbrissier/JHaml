@@ -25,4 +25,7 @@ public class AttributeValue {
 	public boolean isJspExpression() {
 		return !quoted && value.startsWith("<%=");
 	}
+	public boolean isGroovyExpression() {
+		return value.startsWith("${");
+	}
 }

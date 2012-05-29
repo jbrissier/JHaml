@@ -64,7 +64,7 @@ public class Helper {
 					continue;
 				}
 				String thisAttrWrapper = attrWrapper;
-				if (!e.getValue().isJspExpression()) {
+				if (!e.getValue().isJspExpression() && !e.getValue().isGroovyExpression()) {
 					// Should do the same as Haml's Helper.escape_once
 					value = StringEscapeUtils.escapeHtml(StringEscapeUtils.unescapeHtml(value));
 					// Helpers.preserve
@@ -128,7 +128,7 @@ public class Helper {
 	public String parseDoubleLiteral(String lit) {
 		return Double.toString(Double.parseDouble(lit));
 	}
-	
+
 	public String parseNumberLiteral(String lit) {
 		return lit.contains(".") ? parseDoubleLiteral(lit) : parseIntegerLiteral(lit);
 	}
@@ -274,7 +274,7 @@ public class Helper {
 		String remainingLines = string.substring(string.indexOf("\n"));
 		return "<% if " + condition + " { %>" + remainingLines + "\n<% } %>";
 	}
-	
+
 	private String elseBlock(String string) {
 		String firstLine = string.substring(0, string.indexOf("\n"));
 		if (firstLine.contains("if") && firstLine.replaceAll("\\s", "").startsWith("elseif")) {
@@ -304,7 +304,7 @@ public class Helper {
 		String remainingLines = string.substring(string.indexOf("\n"));
 		return "<% for " + condition + " { %>" + remainingLines + "\n<% } %>";
 	}
-	
+
 	private String groovyEachLoop(String string) {
 		String listName = string.substring(0, string.indexOf(".each")).trim();
 		String remainingLines = string.substring(string.indexOf("\n"));
